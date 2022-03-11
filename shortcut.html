@@ -1,0 +1,142 @@
+<html class="k-webkit k-webkit99"><head>
+    <title>a</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="text/html charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"><style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #standalone{
+        padding-top: 20vw;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    #standalone_con{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #bt1{
+        margin-top: 60vw;
+        width: 50vw;
+        height: 13vw;
+        border: none;
+        text-align: center;
+        line-height: 13vw;
+        border-radius: 5vw;
+        background: #E60012;
+        font-size: 5vw;
+        color: #FFFFFF;
+    }
+    #msg{
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between
+    }
+</style>
+</head>
+
+<body>
+<div id="standalone" style="display: none">
+    <div id="standalone_con">
+        <div style="font-size: 4vw;">您即将进入</div>
+    </div>
+    <div id="bt1" onclick="into()">立即进入</div>
+</div>
+
+<!--<a href="https://juejin.cn/post/6844903885488783374#heading-39" id="qbt" style="display:none"></a>-->
+<div id="msg" style="display: none">
+    <img style="width: 100%;" src="resources/images/createShowcut.png">
+    <img style="width: 10%;" src="resources/images/fenxaing.png">
+</div>
+
+<script>
+    function into(){
+        var lnk = document.getElementById("qbt").click();
+    }
+    let id = getQueryValue('id')
+    let scheme = getQueryValue('scheme')
+    if (scheme){
+        $("head").append('<a href="' + scheme + '" id="qbt" style="display:none"></a>');
+    }
+
+    $.ajax({
+        url: _basePath + '/appApplication/createShortCut/' + id ,
+        type: 'GET',
+        data: {},
+        // contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            if (data.success){
+                $("head").append('<link rel="apple-touch-icon" href="' + data.row.icon + '">');
+                $("title").text(data.row.appName);
+                $('#standalone_con').append('<image style="width: 30vw" src=" ' + data.row.icon + '">')
+                $('#standalone_con').append('<span style="font-size: 5vw;font-weight: bold">' + data.row.appName + '</span>')
+                // $('#msg').append(scheme)
+
+                if (window.navigator.standalone == true) {
+                    $('#standalone').show();
+                    into();
+                } else {
+                    $('#msg').show();
+                    // document.getElementById("msg").innerHTML='<center style="position:absolute;left:0;top:0;width: 100%;height: 100%;">  </center>';
+                }
+
+            }else {
+                alert(data.message);
+            }
+        },
+        error: function (data, status, e) {
+            console.error(e);
+        }
+    });
+
+</script>
+</body>
+</html>
+ios 下载ipa文件安装方式
+<a href="itms-services://?action=download-manifest&amp;url=https://app.dfwlg.com/workbench/lib/rummy_prod.plist">iPhone 下载</a>
+
+plist  文件
+<plist version="1.0">
+<dict>
+<key>items</key>
+<array>
+<dict>
+<key>assets</key>
+<array>
+<dict>
+<key>kind</key>
+<string>software-package</string>
+<key>url</key>
+<!-- type  0 android  1ios  -->
+<string>https://app.dfwlg.com/workbench/api/public/fs/association/file/downLoad?uploadId=951787845389910016</string>
+</dict>
+</array>
+<key>metadata</key>
+<dict>
+<key>bundle-identifier</key>
+<string>com.dfcc.service.test</string>
+<key>bundle-version</key>
+<string>6.5.23</string>
+<key>kind</key>
+<string>software</string>
+<key>title</key>
+<string>东风物流</string>
+</dict>
+</dict>
+</array>
+</dict>
+</plist>
