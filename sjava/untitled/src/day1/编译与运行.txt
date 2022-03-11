@@ -1,0 +1,22 @@
+编译
+javac 绝对路径或相对路径
+
+运行  只能在当前目录下
+java 类名
+
+public class 和 class 的区别
+java文件中
+1、public class(类体)的public不是必需的
+2、class(类体)可以有多个
+3、有几个class(类体)，编译后就会生成几个class文件
+4、java的文件名必须和public class(类体) 声明的类名一致 因此最多只能声明一次
+5、所有的class(类体)中都可以编写main(String[] args)主程序入口，
+ 想执行class B{}  java B     想执行class C{}  java C
+ 但执行时 该类体中必须要有主程序入口main(String[] args)
+ 否则执行错误
+
+public class HelloWord{
+	public static void main(String[] args){
+		System.out.print("aaa");
+	}
+}
